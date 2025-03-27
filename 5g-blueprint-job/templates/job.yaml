@@ -23,7 +23,7 @@ spec:
           - |
             echo "Downloading 5G Blueprint file..."
             apt-get update
-            apt-get install curl
+            apt-get install -y curl
             curl -sSL -o /data/5gblueprint-edge.json https://raw.githubusercontent.com/5GSEC/5g-blueprint-controls/refs/heads/main/5gblueprint.json
             curl -sSL -o /data/5gblueprint-core.json https://raw.githubusercontent.com/5GSEC/5g-blueprint-controls/refs/heads/main/5gblueprint-core.json
             echo "Running Kubescape scan..."

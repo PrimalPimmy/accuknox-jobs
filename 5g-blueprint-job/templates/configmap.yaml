@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: 5g-blueprint-job-script-configmap
+  name: 5g-blueprint-script-configmap
   namespace: {{ .Release.Namespace }}
 data:
   augment-and-push-results.sh: |

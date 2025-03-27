@@ -72,6 +72,6 @@ spec:
           emptyDir: {}
         - name: scriptpath
           configMap:
-            name: 5g-blueprint-job-script-configmap
+            name: 5g-blueprint-script-configmap
       restartPolicy: OnFailure
-      serviceAccount: 5g-blueprint-job-script-configmap
+      serviceAccount: 5g-blueprint-service-account

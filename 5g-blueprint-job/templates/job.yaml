@@ -22,8 +22,8 @@ spec:
         args:
           - |
             echo "Downloading 5G Blueprint file..."
-            curl -sSL -o /data/5gblueprint-edge.json https://raw.githubusercontent.com/5GSEC/5g-blueprint-controls/refs/heads/main/5gblueprint.json
-            curl -sSL -o /data/5gblueprint-core.json https://raw.githubusercontent.com/5GSEC/5g-blueprint-controls/refs/heads/main/5gblueprint-core.json
+            wget -q -O /data/5gblueprint-edge.json https://raw.githubusercontent.com/5GSEC/5g-blueprint-controls/refs/heads/main/5gblueprint.json
+            wget -q -O /data/5gblueprint-core.json https://raw.githubusercontent.com/5GSEC/5g-blueprint-controls/refs/heads/main/5gblueprint-core.json
             echo "Running Kubescape scan..."
       - name: job-kubescape-container
         image: "{{ .Values.kubescape.image.repository }}:{{ .Values.kubescape.image.tag }}"

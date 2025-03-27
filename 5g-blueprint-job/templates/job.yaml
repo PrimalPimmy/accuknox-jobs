@@ -22,10 +22,10 @@ spec:
         args:
           - |
             echo "Downloading 5G Blueprint file..."
-            curl -sSL -o /data/5gblueprint.json https://raw.githubusercontent.com/5GSEC/5g-blueprint-controls/refs/heads/main/5gblueprint.json
+            curl -sSL -o /data/5gblueprintedge.json https://raw.githubusercontent.com/5GSEC/5g-blueprint-controls/refs/heads/main/5gblueprint.json
             curl -sSL -o /data/5gblueprintcore.json https://raw.githubusercontent.com/5GSEC/5g-blueprint-controls/refs/heads/main/5gblueprint-core.json
             echo "Running Kubescape scan..."
-            kubescape scan framework 5GBlueprint --use-from /data/5gblueprint$(TYPE).json \
+            kubescape scan framework 5GBlueprint --use-from /data/5gblueprint$(CLUSTER_NAME).json \
              --format json --output /data/report_5g.json
         env:
          - name: CLUSTER_NAME

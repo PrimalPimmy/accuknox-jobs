@@ -8,7 +8,7 @@ data:
     #! /bin/sh
 
     # Get all controls
-    jq -s 'map(.controls[]) | unique_by(.controlID) | .[]' /data/5gblueprint-'$ENV.CLUSTER_NAME'.json > controllist.json
+    jq -s 'map(.controls[]) | unique_by(.controlID) | .[]' /data/5gblueprint-'$ENV.CLUSTER_NAME'.json > /data/controllist.json
 
 
     export GENERATION_TIME=`date --utc -Isecond`

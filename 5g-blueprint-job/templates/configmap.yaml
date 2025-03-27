@@ -29,6 +29,8 @@ data:
 
     mv /data/report_tmp.json /data/report.json
 
+    cat /data/report.json
+
     # push
     curl --location --request POST \
     --header "Authorization: Bearer ${AUTH_TOKEN}" \

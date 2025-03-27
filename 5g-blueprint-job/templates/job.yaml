@@ -17,7 +17,7 @@ spec:
     {{- end }}    
       initContainers:
       - name: init-setup
-        image: debian:stable-slim
+        image: ubuntu:22.04
         command: ["/bin/sh", "-c"]
         args:
           - |

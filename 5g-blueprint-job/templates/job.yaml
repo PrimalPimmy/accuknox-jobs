@@ -16,25 +16,26 @@ spec:
         - name: {{ .Values.imagePullSecrets.name }}
     {{- end }}    
       initContainers:
-      - name: job-init-container
-        image: "{{ .Values.kubescape.image.repository }}:{{ .Values.kubescape.image.tag }}"
+      - name: init-setup
+        image: debian:stable-slim
         command: ["/bin/sh", "-c"]
         args:
           - |
             echo "Downloading 5G Blueprint file..."
-            curl -sSL -o /data/5gblueprintedge.json https://raw.githubusercontent.com/5GSEC/5g-blueprint-controls/refs/heads/main/5gblueprint.json
-            curl -sSL -o /data/5gblueprintcore.json https://raw.githubusercontent.com/5GSEC/5g-blueprint-controls/refs/heads/main/5gblueprint-core.json
+            curl -sSL -o /data/5gblueprint-edge.json https://raw.githubusercontent.com/5GSEC/5g-blueprint-controls/refs/heads/main/5gblueprint.json
+            curl -sSL -o /data/5gblueprint-core.json https://raw.githubusercontent.com/5GSEC/5g-blueprint-controls/refs/heads/main/5gblueprint-core.json
             echo "Running Kubescape scan..."
-            kubescape scan framework 5GBlueprint --use-from /data/5gblueprint$(CLUSTER_NAME).json \
-             --format json --output /data/report_5g.json
+      - name: job-kubescape-container
+        image: "{{ .Values.kubescape.image.repository }}:{{ .Values.kubescape.image.tag }}"
+        # scan framework 5Gblueprint-CORE --kube-context core-admin@core --use-from ~/regolibrary/release/5gblueprint-core.json  --exceptions ~/excep2.json --format html --output core-after.html
+        args: ["scan", "framework", "5GBlueprint", "--format", "json", "--use-from", "/data/5gblueprint-$(CLUSTER_NAME).json", "--output", "/data/report.json", "--cluster-name=$(CLUSTER_NAME)"]
         env:
          - name: CLUSTER_NAME
            value: {{ .Values.accuknox.clusterName }}
-         - name: TYPE
-           value: {{ .Values.accuknox.type }}
         volumeMounts:
         - name: datapath
           mountPath: /data
+      
 
       containers:
         - image: "{{ .Values.accuknoxJob.image.repository }}:{{ .Values.accuknoxJob.image.tag }}"
